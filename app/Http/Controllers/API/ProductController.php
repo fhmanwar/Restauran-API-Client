@@ -68,8 +68,6 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $valid = Validator::make($request->all(), [
-            'uStoreId' => 'required',
-            'catId' => 'required',
             'img' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -85,24 +83,17 @@ class ProductController extends Controller
                 $name = $imgName.'-'.time().'.'.$imgExt;
                 $image->storeAs($path,$name);
                 $newName = $path.'/'.$name;
-                Product::whereId($id)
+                Product::where('id_masakan', $id)
                     ->update([
                         'image' => $newName,
                     ]);
             }
-            Product::whereId($id)
+            Product::where('id_masakan', $id)
                 ->update([
-                    'userStoreId' => $request->uStoreId,
-                    'categoryId' => $request->catId,
-                    'productType' => $request->prodType,
-                    'productCode' => $request->prodCode,
-                    'productName' => $request->prodName,
-                    'buyingPrice' => $request->buyPrice,
-                    'sellingPrice' => $request->sellPrice,
-                    'stock' => $request->stock,
-                    'unit' => $request->unit,
-                    'productDiscount' => $request->prodDisc,
-                    'buyDate' => $request->buyDate,
+                    'nama_masakan' => $request->prodName,
+                    'harga' => $request->price,
+                    'stok' => $request->stock,
+                    'status_masakan' => $request->status,
                 ]);
             return JsonRes::data(true, 'Update Successfully');
         }

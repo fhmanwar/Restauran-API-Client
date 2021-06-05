@@ -189,17 +189,17 @@
     }
 
     function GetById(number) {
-        debugger;
+        // debugger;
         var getId = table.row(number).data().id_masakan;
         $.ajax({
             url: "/api/product/"+getId,
         }).then((result) => {
-            debugger;
+            // debugger;
             var resData = result.data;
             $('#Id').val(resData.id_masakan);
             $('#prodName').val(resData.nama_masakan);
             $('#price').val(resData.harga);
-            $('#stock').val(resData.stock);
+            $('#stock').val(resData.stok);
             $('#status').val(resData.status_masakan);
             $('#previewImg').src = '/img/'+resData.gambar_masakan;
             $('#add').hide();
@@ -226,7 +226,6 @@
             cache: false,
             processData: false,
             contentType: false,
-            dataType: "JSON",
             data: formData
         }).then((result) => {
             // debugger;
@@ -247,16 +246,24 @@
     }
 
     function Upd() {
-        // debugger;
-        var Data = new Object();
-        Data.id = $('#IdRole').val();
-        Data.role = $('#Role').val();
+        var formData = new FormData();
+        formData.append('_method', 'PUT');
+        formData.append('prodName', $('#prodName').val());
+        formData.append('price', $('#price').val());
+        formData.append('stock', $('#stock').val());
+        formData.append('status', $('#status').val());
+        if ($('#img').val() != "") {
+            formData.append('img', $('#img')[0].files[0]);
+        }
         $.ajax({
-            type: 'PUT',
-            url: "/api/level/" + Data.id,
+            type: 'POST',
+            url: "/api/product/" + $('#Id').val(),
+            enctype: 'multipart/form-data',
             cache: false,
+            processData: false,
+            contentType: false,
             dataType: "JSON",
-            data: Data
+            data: formData
         }).then((result) => {
             // debugger;
             if (result.statusCode == true) {
