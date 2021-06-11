@@ -25,7 +25,7 @@
                                     <span class="link-collapse">My Profile</span>
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="#edit">
                                     <span class="link-collapse">Edit Profile</span>
                                 </a>
@@ -34,7 +34,7 @@
                                 <a href="#settings">
                                     <span class="link-collapse">Settings</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -68,26 +68,28 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/product') }}">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Product</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#base">
                         <i class="fas fa-layer-group"></i>
-                        <p>Product</p>
+                        <p>Transaksi</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="{{ url('admin/product') }}">
-                                    <span class="sub-item">Data Product</span>
+                                <a href="{{ url('admin/order') }}">
+                                    <span class="sub-item">Order</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/buttons.html">
-                                    <span class="sub-item">Buttons</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
+                                <a href="{{ url('admin/transaksi') }}">
+                                    <span class="sub-item">Data Transaksi</span>
                                 </a>
                             </li>
                         </ul>

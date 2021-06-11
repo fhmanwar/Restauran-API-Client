@@ -1,31 +1,17 @@
 @extends('admin.layout.main')
-@section('title','Dashboard')
-@section('head-title','Welcome to Dashboard')
+@section('title','Product')
 
 @section('page')
 <li class="separator">
     <i class="flaticon-right-arrow"></i>
 </li>
 <li class="nav-item">
-    <a href="#">User</a>
-</li>
-<li class="separator">
-    <i class="flaticon-right-arrow"></i>
-</li>
-<li class="nav-item">
-    <a href="#">Data Level</a>
+    <a href="#">Data Product</a>
 </li>
 
 @endsection
 
 @section('content')
-
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
-
 <p>
     <div class="col-md-1">
         <div data-toggle="modal" data-target="#roleModal" onclick="ClearScreen();">
@@ -43,7 +29,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Data Level</h4>
+                <h4 class="card-title">Data Product</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -147,7 +133,7 @@
                     "data": "gambar_masakan",
                     'render': function (jsonData) {
                         if (jsonData != null) {
-                            return '<img src="/img/'+ jsonData +'" alt="myPic" width="60%">';
+                            return '<img src="/img/product/'+ jsonData +'" alt="myPic" width="60%">';
                         }
                         return 'Not Available';
                     }
@@ -239,13 +225,14 @@
                 })
                 table.ajax.reload(null, false);
             } else {
-                Swal.fire('Error', 'Failed to Input', 'error');
+                Swal.fire('Error', result.msg, 'error');
                 ClearScreen();
             }
         })
     }
 
     function Upd() {
+        debugger;
         var formData = new FormData();
         formData.append('_method', 'PUT');
         formData.append('prodName', $('#prodName').val());
@@ -276,7 +263,7 @@
                 });
                 table.ajax.reload(null, false);
             } else {
-                Swal.fire('Error', 'Failed to Input', 'error');
+                Swal.fire('Error', result.msg, 'error');
                 ClearScreen();
             }
         })

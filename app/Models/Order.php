@@ -6,16 +6,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = "tb_order";
+    protected $table = "Order";
     protected $fillable = [
-        'id_admin',
-        'id_pengunjung',
-        'waktu_pesan',
-        'no_meja',
-        'total_harga',
-        'uang_bayar',
-        'uang_kembali',
-        'status_order',
+        'UserId',
+        'Total',
+        'Bayar',
+        'Kembali',
+        'StatusOrder',
+        'CreatedTime',
+    ];
+    public $timestamps = false;
+}
+
+class OrderDetail extends Model
+{
+    protected $table = "OrderDetail";
+    protected $fillable = [
+        'OrderId',
+        'ProductId',
+        'Qty',
+        'SubTotal',
+    ];
+    public $timestamps = false;
+}
+
+class Cart extends Model
+{
+    protected $table = "Cart";
+    protected $fillable = [
+        'UserId',
+        'ProductId',
+        'Qty',
+        'StatusCart',
+        'CreatedTime',
     ];
     public $timestamps = false;
 }

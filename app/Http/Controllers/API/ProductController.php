@@ -36,17 +36,24 @@ class ProductController extends Controller
         // return JsonRes::data(true, 'Successfully', $request->all());
 
         if ($valid->fails()) {
-            return $this->data(false, 'Create unsuccessfully', 'Your Data is wrong');
+            return JsonRes::data(false, 'Create unsuccessfully', $valid->errors());
         } else {
             $newName = null;
             $image = $request->file('img');
             if ($image) {
-                $path = 'img/upload/product';
+                // $path = '/img/product';
+                $path = public_path('img/product');
                 $imgName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $imgExt = pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION);
-                $name = $imgName.'-'.time().'.'.$imgExt;
-                $image->storeAs($path,$name);
-                $newName = $path.'/'.$name;
+                // $imgExt = pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION);
+                // $name = $imgName.'-'.time().'.'.$image->extension();
+                // $newName = $path.'/'.$name;
+                $newName = $imgName.'-'.time().'.'.$image->extension();
+
+                // Store Image in Storage Folder
+                // $image->storeAs($path,$name);
+
+                // Store Image in Public Folder
+                $image->move($path, $newName);
             }
             Product::create([
                 'nama_masakan' => $request->prodName,
@@ -70,22 +77,31 @@ class ProductController extends Controller
         $valid = Validator::make($request->all(), [
             'img' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
+        // return JsonRes::data(true, 'Successfully', $request->all());
 
         if ($valid->fails()) {
-            return $this->data(false, 'Update unsuccessfully', 'Your Data is wrong');
+            return JsonRes::data(false, 'Update unsuccessfully', $valid->errors());
         } else {
             $newName = null;
             $image = $request->file('img');
             if ($image) {
-                $path = 'img/upload/product';
+                // $path = '/img/product';
+                $path = public_path('img/product');
                 $imgName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $imgExt = pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION);
-                $name = $imgName.'-'.time().'.'.$imgExt;
-                $image->storeAs($path,$name);
-                $newName = $path.'/'.$name;
+                // $imgExt = pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION);
+                // $name = $imgName.'-'.time().'.'.$image->extension();
+                // $newName = $path.'/'.$name;
+                $newName = $imgName.'-'.time().'.'.$image->extension();
+
+                // Store Image in Storage Folder
+                // $image->storeAs($path,$name);
+
+                // Store Image in Public Folder
+                $image->move($path, $newName);
+
                 Product::where('id_masakan', $id)
                     ->update([
-                        'image' => $newName,
+                        'gambar_masakan' => $newName,
                     ]);
             }
             Product::where('id_masakan', $id)

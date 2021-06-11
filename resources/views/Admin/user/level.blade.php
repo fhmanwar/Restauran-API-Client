@@ -1,6 +1,5 @@
 @extends('admin.layout.main')
-@section('title','Dashboard')
-@section('head-title','Welcome to Dashboard')
+@section('title','Level')
 
 @section('page')
 <li class="separator">

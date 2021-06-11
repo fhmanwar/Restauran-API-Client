@@ -8,7 +8,6 @@ class Pesan extends Model
 {
     protected $table = "tb_pesan";
     protected $fillable = [
-        'id_user',
         'id_order',
         'id_masakan',
         'jumlah',

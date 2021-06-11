@@ -47,7 +47,7 @@ class UserController extends Controller
             'pass' => 'required',
         ]);
         if ($valid->fails()) {
-            return $this->data(false, 'Create unsuccessfully', 'Your Data is wrong');
+            return JsonRes::data(false, 'Create unsuccessfully', $valid->errors());
         } else {
             User::forceCreate([
                 'username' => $request->username,
@@ -75,7 +75,7 @@ class UserController extends Controller
             'name' => 'required',
         ]);
         if ($valid->fails()) {
-            return $this->data(false, 'Update unsuccessfully', 'Your Data is wrong');
+            return JsonRes::data(false, 'Create unsuccessfully', $valid->errors());
         } else {
             if ($request->pass != null) {
                 User::where('id_user', $id)

@@ -1,6 +1,5 @@
 @extends('admin.layout.main')
-@section('title','Dashboard')
-@section('head-title','Welcome to Dashboard')
+@section('title','User')
 
 @section('page')
 <li class="separator">
@@ -13,7 +12,7 @@
     <i class="flaticon-right-arrow"></i>
 </li>
 <li class="nav-item">
-    <a href="#">Data Level</a>
+    <a href="#">Data User</a>
 </li>
 
 @endsection
@@ -43,7 +42,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Data Level</h4>
+                <h4 class="card-title">Data User</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
