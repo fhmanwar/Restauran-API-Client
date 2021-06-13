@@ -138,8 +138,7 @@
                 @csrf
                 <div class="modal-body">
                     <div id="error_add"></div>
-                    {{-- <input type="text" id="UserId" value="{{ session('userId') }}" class="form-control" hidden> --}}
-                    <input type="text" id="UserId" value="" class="form-control" hidden>
+                    <input type="text" id="UserId" class="form-control" hidden>
                     <div class="col-md-12">
                         <table class="display table table-striped table-hover">
                             <tbody>
@@ -148,16 +147,20 @@
                                     <th><input type="text" class="form-control" id="Waktu" readonly placeholder="Waktu"></th>
                                 </tr>
                                 <tr>
-                                    <th>No Meja:</th>
-                                    <th><input type="number" class="form-control" id="noMeja" placeholder="No Meja"></th>
-                                </tr>
-                                <tr>
                                     <th>Nama Pelanggan:</th>
-                                    <th><input type="text" class="form-control" id="CustName" placeholder="CustName"></th>
+                                    <th><input type="text" class="form-control" id="CustName" readonly placeholder="CustName"></th>
                                 </tr>
                                 <tr>
                                     <th>Total:</th>
                                     <th><input type="number" class="form-control" id="Total" readonly placeholder="Total"></th>
+                                </tr>
+                                <tr>
+                                    <th>Bayar:</th>
+                                    <th><input type="number" class="form-control" id="Bayar" required placeholder="Bayar"></th>
+                                </tr>
+                                <tr>
+                                    <th>Kembali:</th>
+                                    <th><input type="number" class="form-control" id="Kembali" readonly placeholder="Kembali"></th>
                                 </tr>
                             </tbody>
                         </table>
@@ -329,7 +332,7 @@
 
     function addCart(number) {
         var Data = new Object();
-        Data.UserId = $('#UserId').val();
+        Data.UserId = '1';
         Data.productName = $('input[name*="addProducName'+number+'"]').val();
         // console.log(Data);
         $.ajax({
@@ -360,8 +363,8 @@
     function Upd() {
         var Data = new Object();
         Data.Id = $('#Id').val();
-        Data.UserId = $('#UserId').val();
-        // Data.UserId = '1';
+        // Data.userID = $('#UserId').val();
+        Data.UserId = '1';
         Data.productName = $('#prodName').val();
         Data.qty = $('#qty').val();
         // console.log(Data);
@@ -452,13 +455,11 @@
     function addOrder() {
         // debugger;
         var Data = new Object();
-        Data.userId = $('#UserId').val();
-        // Data.userId = '1';
-        Data.noMeja = $('#noMeja').val();
-        Data.name = $('#CustName').val();
+        // Data.userId = $('#UserId').val();
+        Data.userId = '1';
         Data.total = $('#Total').val();
-        // Data.bayar = $('#Bayar').val();
-        // Data.kembali = $('#Kembali').val();
+        Data.bayar = $('#Bayar').val();
+        Data.kembali = $('#Kembali').val();
         var orderDetail = new Array();
         var dataTable = table.rows().data().toArray();
         // console.log(dataTable);

@@ -50,7 +50,10 @@ Route::delete('product/{id}','API\ProductController@destroy');
 
 // Transaction
 Route::prefix('transaction')->group(function(){
-    Route::get('/','API\TransactionController@index');
+    Route::get('tes','API\TransactionController@index');
+    Route::get('/', 'API\TransactionController@getAllTransaction');
+    Route::get('det/{id}', 'API\TransactionController@getIdTransaction');
+    Route::post('/', 'API\TransactionController@addTransaction');
 
     // Cart
     Route::get('cart/{id}', 'API\TransactionController@cartUserId');
@@ -59,5 +62,17 @@ Route::prefix('transaction')->group(function(){
     Route::post('updCart', 'API\TransactionController@updCart');
     Route::delete('delCartId/{id}','API\TransactionController@delCartById');
 
-    Route::post('order', 'API\TransactionController@addOrder');
+    Route::prefix('order')->group(function(){
+        Route::get('/', 'API\TransactionController@getAllOrderByStatus');
+        Route::get('/{id}', 'API\TransactionController@getIdOrderByStatus');
+        Route::post('/', 'API\TransactionController@addOrder');
+        Route::delete('del/{id}', 'API\TransactionController@delOrder');
+
+        Route::get('det/{id}', 'API\TransactionController@getIdOrderDetail');
+        Route::post('det', 'API\TransactionController@updOrderDetail');
+        Route::delete('det/{id}', 'API\TransactionController@delOrderDetail');
+    });
+
+    Route::get('orderdet/{id}', 'API\TransactionController@getOrderDetailByOrderId');
+
 });

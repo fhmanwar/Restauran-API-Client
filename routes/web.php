@@ -46,6 +46,8 @@ Route::prefix('admin')->middleware(['roleAccess'])->group(function(){
     Route::get('/transaksi','AdminController@transaction');
     // Laporan
     Route::get('/laporan','AdminController@laporan');
+
+    Route::get('/print/{id}', 'AdminController@print')->name('print');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

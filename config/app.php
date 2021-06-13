@@ -175,6 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //new line
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -226,6 +228,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //new line
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 
