@@ -138,8 +138,8 @@
                 @csrf
                 <div class="modal-body">
                     <div id="error_add"></div>
-                    {{-- <input type="text" id="UserId" value="{{ session('userId') }}" class="form-control" hidden> --}}
-                    <input type="text" id="UserId" value="" class="form-control" hidden>
+                    <input type="text" id="UserId" value="{{ session('userId') }}" class="form-control" hidden>
+                    {{-- <input type="text" id="UserId" value="" class="form-control" hidden> --}}
                     <div class="col-md-12">
                         <table class="display table table-striped table-hover">
                             <tbody>
@@ -186,7 +186,7 @@
             "pagination": true,
             "stateSave": true,
             "ajax": {
-                url: "/api/transaction/cart/1",
+                url: "/api/cart/"+ $('#UserId').val(),
                 type: "GET",
                 dataType: "json",
                 dataSrc: "",
@@ -264,7 +264,7 @@
             var getHarga = $('#price').val();
             var getQty = $('#qty').val();
             $.ajax({
-               url: "/api/transaction/cartid/1",
+               url: "/api/cart/cartid/1",
                type: "Get",
             //    data: { name: getZip },
                success: function (result) {
@@ -307,7 +307,7 @@
         var getId = table.row(number).data().id;
         // console.log(getId);
         $.ajax({
-            url: "/api/transaction/cartid/" + getId,
+            url: "/api/cart/cartid/" + getId,
         }).then((result) => {
             // debugger;
             var resData = result.data;
@@ -330,11 +330,12 @@
     function addCart(number) {
         var Data = new Object();
         Data.UserId = $('#UserId').val();
+        Data.noMeja = '0';
         Data.productName = $('input[name*="addProducName'+number+'"]').val();
         // console.log(Data);
         $.ajax({
             type: 'POST',
-            url: '/api/transaction/addToCart/',
+            url: '/api/cart/',
             cache: false,
             dataType: "JSON",
             data: Data
@@ -359,7 +360,7 @@
 
     function Upd() {
         var Data = new Object();
-        Data.Id = $('#Id').val();
+        Data.IdCart = $('#Id').val();
         Data.UserId = $('#UserId').val();
         // Data.UserId = '1';
         Data.productName = $('#prodName').val();
@@ -367,7 +368,7 @@
         // console.log(Data);
         $.ajax({
             type: 'POST',
-            url: '/api/transaction/updCart/',
+            url: '/api/cart/updCart/',
             cache: false,
             dataType: "JSON",
             data: Data
@@ -408,7 +409,7 @@
                 Data._method = 'DELETE';
                 $.ajax({
                     type: 'POST',
-                    url: "/api/transaction/delCartId/" + getid,
+                    url: "/api/cart/" + getid,
                     cache: false,
                     dataType: "JSON",
                     data: Data,
@@ -443,63 +444,112 @@
         });
         console.log(dataTable);
         // console.log(tot);
+        if ($('#UserId').val() != null || $('#noMeja').val() != null) {
+            $.ajax({
+            url: "/api/cart/cartid/" + $('#UserId').val(),
+            }).then((result) => {
+                // debugger;
+                var resData = result.data;
+                $('#CustName').val(resData.nama_user).prop('readonly',true);
+                $('#noMeja').val(resData.NoMeja);
+            })
+        } else {
+            $('#CustName').val();
+            $('#noMeja').val();
+        }
         $('#Total').val(tot);
-        $('#CustName').val();
         displayTime();
         $('#orderModal').modal('show');
     }
 
     function addOrder() {
-        // debugger;
-        var Data = new Object();
-        Data.userId = $('#UserId').val();
-        // Data.userId = '1';
-        Data.noMeja = $('#noMeja').val();
-        Data.name = $('#CustName').val();
-        Data.total = $('#Total').val();
-        // Data.bayar = $('#Bayar').val();
-        // Data.kembali = $('#Kembali').val();
-        var orderDetail = new Array();
         var dataTable = table.rows().data().toArray();
-        // console.log(dataTable);
+
+        var dataCart=null;
         $.each(dataTable, function name( i, val ) {
-            var getsubtotal = val.harga * val.Qty;
-            orderDetail.push({cartId: val.id, productId: val.id_masakan, Qty: val.Qty, Subtotal: getsubtotal});
-            // orderDetail[i] = {};
-            // orderDetail[i].productId = val.id_masakan;
-            // orderDetail[i].Qty = val.Qty;
-            // orderDetail[i].Subtotal = val.getsubtotal;
-
-            // console.log(val);
+            dataCart =  val.id +'|'+ val.nama_masakan +'|'+ val.Qty + '~' + dataCart;
         });
-        // console.log(orderDetail);
-        Data.orderDet = orderDetail;
-        // console.log(Data);
 
-        $.ajax({
-            type: 'POST',
-            url: "/api/transaction/order",
-            cache: false,
-            dataType: "JSON",
-            data: Data
-        }).then((result) => {
-            // debugger;
-            if (result.statusCode == true) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Data inserted Successfully',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                // console.log(result.data);
-                table.ajax.reload(null, false);
-            } else {
-                Swal.fire('Error', 'Failed to Input', 'error');
-                // console.log(result.data);
-                ClearScreen();
-            }
-        })
+        if (dataCart == null) {
+            Swal.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Keranjang Masih Kosong',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 1500,
+            });
+        } else {
+            var Data = new Object();
+            Data.userId = $('#UserId').val();
+            Data.name =  $('#CustName').val();
+            Data.total = $('#Total').val();
+            Data.noMeja = $('#noMeja').val();
+            Data.orderDet = dataCart;
+            $.ajax({
+                type: 'POST',
+                url: "/api/order",
+                cache: false,
+                dataType: "JSON",
+                data: Data
+            }).then((result) => {
+                if (result.statusCode) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Order Successfully',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    // location.reload();
+                    // location.href = '/complete/'+$('input[name="noMeja"]').val();
+                    table.ajax.reload(null, false);
+                } else {
+                    Swal.fire('Error', 'Failed to Input', 'error');
+                    ClearScreen();
+                }
+            })
+        }
+
+        // var orderDetail = new Array();
+        // console.log(dataTable);
+        // $.each(dataTable, function name( i, val ) {
+        //     var getsubtotal = val.harga * val.Qty;
+        //     orderDetail.push({cartId: val.id, productId: val.id_masakan, Qty: val.Qty, Subtotal: getsubtotal});
+        //     // orderDetail[i] = {};
+        //     // orderDetail[i].productId = val.id_masakan;
+        //     // orderDetail[i].Qty = val.Qty;
+        //     // orderDetail[i].Subtotal = val.getsubtotal;
+
+        //     // console.log(val);
+        // });
+        // // console.log(orderDetail);
+        // Data.orderDet = orderDetail;
+
+        // $.ajax({
+        //     type: 'POST',
+        //     url: "/api/order",
+        //     cache: false,
+        //     dataType: "JSON",
+        //     data: Data
+        // }).then((result) => {
+        //     // debugger;
+        //     if (result.statusCode == true) {
+        //         Swal.fire({
+        //             position: 'center',
+        //             icon: 'success',
+        //             title: 'Data inserted Successfully',
+        //             showConfirmButton: false,
+        //             timer: 1500,
+        //         })
+        //         // console.log(result.data);
+        //         table.ajax.reload(null, false);
+        //     } else {
+        //         Swal.fire('Error', 'Failed to Input', 'error');
+        //         // console.log(result.data);
+        //         ClearScreen();
+        //     }
+        // })
     }
 
 

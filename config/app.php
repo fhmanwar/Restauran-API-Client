@@ -177,6 +177,8 @@ return [
 
         //new line
         Barryvdh\DomPDF\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
     ],
 
     /*
@@ -231,7 +233,8 @@ return [
 
         //new line
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
     ],
 
 ];

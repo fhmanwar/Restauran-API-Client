@@ -16,17 +16,18 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
 Route::get('/', function () {
-    return redirect()->route('login');
-})->name('home');
+    return redirect()->route('home');
+});
 
 
-Route::get('/tes','AuthController@tes');
+Route::get('/testAuth','AuthController@tes');
 Route::get('/login','AuthController@login')->name('login');
 Route::get('/logout','AuthController@logout')->name('logout');
 Route::post('/auth','AuthController@auth')->name('auth');
 Route::get('/session','AuthController@tesSession')->name('tes');
-// Route::get('/register','AuthController@regis');
+Route::get('qrcode/{id}', 'UtilityController@generateQr');
 
 Route::prefix('admin')->middleware(['roleAccess'])->group(function(){
     Route::get('/dasbor','AdminController@index')->name('dasbor');
@@ -44,10 +45,24 @@ Route::prefix('admin')->middleware(['roleAccess'])->group(function(){
     Route::get('/order','AdminController@order');
     // Transaksi
     Route::get('/transaksi','AdminController@transaction');
-    // Laporan
-    Route::get('/laporan','AdminController@laporan');
 
     Route::get('/print/{id}', 'AdminController@print')->name('print');
+    Route::post('/excelMonth', 'AdminController@transaksiMonhtExcel')->name('excelMonth');
+    Route::post('/excelDaily', 'AdminController@transaksiDailyExcel')->name('excelDaily');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('/')->group(function(){
+    Route::get('tesUser', 'HomeController@index')->name('tesUser');
+
+    Route::get('home', 'HomeController@katalog')->name('home');
+
+    Route::get('customer/{id}', 'HomeController@setSessionCustomer');
+
+    Route::get('cart/{id}', 'HomeController@cart')->name('cart');
+    Route::post('addcart', 'HomeController@addCart')->name('addCart');
+
+    Route::get('complete/{id}', 'HomeController@completeOder')->name('complete');
+});
+
+
+Route::get('tesc', 'TesController@tesApi');

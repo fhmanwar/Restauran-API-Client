@@ -37,6 +37,7 @@ class Cart extends Model
     protected $fillable = [
         'UserId',
         'ProductId',
+        'NoMeja',
         'Qty',
         'StatusCart',
         'CreatedTime',

@@ -32,8 +32,8 @@
 </head>
 <body>
 
-    <div class="login">
-        <div class="wrapper wrapper-login">
+    <div class="login" style="background-image: url('/img/product/kppiezo.jpg');background-size: cover;background-position: center;">
+        <div class="wrapper wrapper-login" style="background-color: transparent; opacity: 0.9;">
             <div class="container container-login animated fadeIn">
                 <h3 class="text-center">Sign In To Admin</h3>
                 @if (session('status'))
@@ -56,64 +56,13 @@
                                 <i class="flaticon-interface"></i>
                             </div>
                         </div>
-                        <div class="row form-sub m-0">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="rememberme">
-                                <label class="custom-control-label" for="rememberme">Remember Me</label>
-                            </div>
-
-                            <a href="#" class="link float-right">Forget Password ?</a>
-                        </div>
                         <div class="form-action mb-3">
                             <button type="submit" class="btn btn-primary btn-rounded btn-login">Sign In</button>
-                            {{-- <button class="btn btn-primary btn-rounded btn-login" onclick="login();">Sign In</button> --}}
-                            {{-- <a href="#" class="btn btn-primary btn-rounded btn-login">Sign In</a> --}}
                         </div>
                     </form>
-                    <div class="login-account">
-                        <span class="msg">Don't have an account yet ?</span>
-                        <a href="#" id="show-signup" class="link">Sign Up</a>
-                    </div>
                 </div>
             </div>
 
-            {{-- <div class="container container-signup animated fadeIn">
-                <h3 class="text-center">Sign Up</h3>
-                <div class="login-form">
-                    <div class="form-group form-floating-label">
-                        <input  id="fullname" name="fullname" type="text" class="form-control input-border-bottom" required>
-                        <label for="fullname" class="placeholder">Fullname</label>
-                    </div>
-                    <div class="form-group form-floating-label">
-                        <input  id="email" name="email" type="email" class="form-control input-border-bottom" required>
-                        <label for="email" class="placeholder">Email</label>
-                    </div>
-                    <div class="form-group form-floating-label">
-                        <input  id="passwordsignin" name="passwordsignin" type="password" class="form-control input-border-bottom" required>
-                        <label for="passwordsignin" class="placeholder">Password</label>
-                        <div class="show-password">
-                            <i class="flaticon-interface"></i>
-                        </div>
-                    </div>
-                    <div class="form-group form-floating-label">
-                        <input  id="confirmpassword" name="confirmpassword" type="password" class="form-control input-border-bottom" required>
-                        <label for="confirmpassword" class="placeholder">Confirm Password</label>
-                        <div class="show-password">
-                            <i class="flaticon-interface"></i>
-                        </div>
-                    </div>
-                    <div class="row form-sub m-0">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" name="agree" id="agree">
-                            <label class="custom-control-label" for="agree">I Agree the terms and conditions.</label>
-                        </div>
-                    </div>
-                    <div class="form-action">
-                        <a href="#" id="show-signin" class="btn btn-danger btn-rounded btn-login mr-3">Cancel</a>
-                        <a href="#" class="btn btn-primary btn-rounded btn-login">Sign Up</a>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 	<script src="{{ asset('/js/plugin/jquery-3.5.1.min.js') }}"></script>

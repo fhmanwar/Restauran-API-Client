@@ -2,17 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Product;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    protected $rootUri = 'http://localhost:5000/api/';
     public function index()
     {
-        return view('home');
+        return view('user.katalog');
     }
+
+    public function setSessionCustomer($id)
+    {
+        session([
+            'noMeja' => $id,
+        ]);
+        return redirect()->route('home');
+    }
+
+    public function katalog()
+    {
+        $data = [
+            'product' => Product::all(),
+        ];
+        return view('user.katalog', $data);
+    }
+
+    public function addCart(Request $request)
+    {
+        $valid = Validator::make($request->all(), [
+            'noMeja' => 'required',
+            'productName' => 'required',
+        ]);
+
+        if ($valid->fails()) {
+            return redirect()->route('home')->with('status', 'nomer Meja tidak ada');
+        } else {
+            $getProdId = Product::where('nama_masakan',$request->productName)->first();
+            Cart::create([
+                'UserId' => $request->UserId,
+                'ProductId' => $getProdId->id_masakan,
+                'Qty' => '1',
+                'NoMeja' => $request->noMeja,
+                'CreatedTime' => Carbon::now(),
+            ]);
+            return redirect()->route('home');
+        }
+    }
+
+    public function cart($id)
+    {
+        $cart = Cart::select('Cart.id','Cart.Qty', 'Cart.NoMeja', 'Cart.statusCart', 'Cart.createdTime', 'tb_user.nama_user', 'Cart.productId', 'tb_masakan.nama_masakan', 'tb_masakan.harga', 'tb_masakan.stok', 'tb_masakan.gambar_masakan')
+                    ->leftJoin('tb_user', 'Cart.userId','=','tb_user.id_user')
+                    ->leftJoin('tb_masakan', 'Cart.productId','=','tb_masakan.id_masakan')
+                    ->where([
+                        ['Cart.NoMeja', '=', $id],
+                        ['Cart.StatusCart', '<>', 'true'],
+                    ])
+                    ->get();
+
+        $data = [
+            'cart' => $cart,
+        ];
+        return view('user.cart', $data);
+    }
+
+    public function completeOder($id)
+    {
+        if (session('noMeja') == $id) {
+            session()->flush();
+            return view('user.done');
+        }
+        else {
+            return redirect()->route('home')->with('status','tidak memiliki akses');
+        }
+    }
+
+
 }

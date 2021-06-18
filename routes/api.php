@@ -25,28 +25,60 @@ Route::post('/auth/login',[AuthController::class, 'login']);
 Route::post('/auth/register',[AuthController::class, 'register']);
 
 // Role
-Route::get('/level/tes','API\LevelController@index');
-Route::get('level','API\LevelController@getAll');
-Route::get('level/{id}','API\LevelController@getId');
-Route::post('level','API\LevelController@create');
-Route::put('level/{id}','API\LevelController@update');
-Route::delete('level/{id}','API\LevelController@destroy');
+Route::prefix('level')->group(function(){
+    Route::get('/tes','API\LevelController@index');
+    Route::get('/','API\LevelController@getAll');
+    Route::get('/{id}','API\LevelController@getId');
+    Route::post('/','API\LevelController@create');
+    Route::put('/{id}','API\LevelController@update');
+    Route::delete('/{id}','API\LevelController@destroy');
+});
 
 // User
-Route::get('user/tes','API\UserController@index');
-Route::get('user','API\UserController@getAll');
-Route::get('user/{id}','API\UserController@getId');
-Route::post('user',[UserController::class, 'create']);
-Route::put('user/{id}',[UserController::class, 'update']);
-Route::delete('user/{id}',[UserController::class, 'destroy']);
+Route::prefix('user')->group(function(){
+    Route::get('/tes','API\UserController@index');
+    Route::get('/','API\UserController@getAll');
+    Route::get('/{id}','API\UserController@getId');
+    Route::post('/',[UserController::class, 'create']);
+    Route::put('/{id}',[UserController::class, 'update']);
+    Route::delete('/{id}',[UserController::class, 'destroy']);
+});
 
 // Product
-Route::get('product/tes','API\ProductController@index');
-Route::get('product', 'API\ProductController@getAll');
-Route::get('product/{id}','API\ProductController@getId');
-Route::post('product','API\ProductController@create');
-Route::put('product/{id}','API\ProductController@update');
-Route::delete('product/{id}','API\ProductController@destroy');
+Route::prefix('product')->group(function(){
+    Route::get('tes','API\ProductController@index');
+    Route::get('/', 'API\ProductController@getAll');
+    Route::get('/{id}','API\ProductController@getId');
+    Route::post('/','API\ProductController@create');
+    Route::put('/{id}','API\ProductController@update');
+    Route::delete('/{id}','API\ProductController@destroy');
+});
+
+// Cart
+Route::prefix('cart')->group(function(){
+    Route::get('/{id}', 'API\TransactionController@cartUserId');
+    Route::get('cartid/{id}', 'API\TransactionController@cartById');
+    Route::post('/', 'API\TransactionController@addToCart');
+    Route::post('updCart', 'API\TransactionController@updCart');
+    Route::delete('/{id}','API\TransactionController@delCartById');
+});
+
+// Order
+Route::prefix('order')->group(function(){
+    Route::get('/', 'API\TransactionController@getAllOrderByStatus');
+    Route::get('/{id}', 'API\TransactionController@getIdOrderByStatus');
+    Route::post('/', 'API\TransactionController@addOrder');
+    Route::delete('del/{id}', 'API\TransactionController@delOrder');
+
+    Route::get('orderdet/{id}', 'API\TransactionController@getOrderDetailByOrderId');
+});
+
+// Order Detail
+Route::prefix('orderdet')->group(function(){
+    Route::get('/{id}', 'API\TransactionController@getIdOrderDetail');
+    Route::post('/', 'API\TransactionController@updOrderDetail');
+    Route::delete('/{id}', 'API\TransactionController@delOrderDetail');
+});
 
 // Transaction
 Route::prefix('transaction')->group(function(){
@@ -54,25 +86,4 @@ Route::prefix('transaction')->group(function(){
     Route::get('/', 'API\TransactionController@getAllTransaction');
     Route::get('det/{id}', 'API\TransactionController@getIdTransaction');
     Route::post('/', 'API\TransactionController@addTransaction');
-
-    // Cart
-    Route::get('cart/{id}', 'API\TransactionController@cartUserId');
-    Route::get('cartid/{id}', 'API\TransactionController@cartById');
-    Route::post('addToCart', 'API\TransactionController@addToCart');
-    Route::post('updCart', 'API\TransactionController@updCart');
-    Route::delete('delCartId/{id}','API\TransactionController@delCartById');
-
-    Route::prefix('order')->group(function(){
-        Route::get('/', 'API\TransactionController@getAllOrderByStatus');
-        Route::get('/{id}', 'API\TransactionController@getIdOrderByStatus');
-        Route::post('/', 'API\TransactionController@addOrder');
-        Route::delete('del/{id}', 'API\TransactionController@delOrder');
-
-        Route::get('det/{id}', 'API\TransactionController@getIdOrderDetail');
-        Route::post('det', 'API\TransactionController@updOrderDetail');
-        Route::delete('det/{id}', 'API\TransactionController@delOrderDetail');
-    });
-
-    Route::get('orderdet/{id}', 'API\TransactionController@getOrderDetailByOrderId');
-
 });

@@ -19,7 +19,7 @@
 
 @section('content')
 
-@if (session('status'))
+@if (session('status') == null)
     <div class="alert alert-success">
         {{ session('status') }}
     </div>

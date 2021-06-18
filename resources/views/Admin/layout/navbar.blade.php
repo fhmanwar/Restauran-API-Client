@@ -6,7 +6,7 @@
         <a href="index.html" class="logo" style="color:azure;">
             {{-- <img src="{{ asset('template/assets/img/logoazzara.svg') }}" alt="navbar brand" class="navbar-brand"> --}}
             <i class="fas fa-swatchbook"></i>
-            Penjualan
+            Piezo Cafe
         </a>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">

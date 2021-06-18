@@ -48,6 +48,50 @@
                 <h4 class="card-title">Generate Laporan</h4>
             </div>
             <div class="card-body">
+                <div class="flex-row justify-content-center">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form action="{{ route('excelMonth') }}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Month</label>
+                                    <input type="month" class="form-control" id="dateMonth" name="dateMonth">
+                                </div>
+                                <div class="form-group">
+                                    <label>Cetak Monthly Excel</label>
+                                    <button type="submit" id="excelMonth" class="btn btn-secondary btn-sm btn-border btn-round">
+                                        <i class="fas fa-print"></i>
+                                        Download
+                                    </button>
+                                    {{-- <a href="{{ route('excelMonth') }}" id="excelMonthBtn" class="btn btn-info btn-sm btn-border btn-round" onclick="ExportExcelMonth();">
+                                        <i class="far fa-file-excel"></i>
+                                        Download
+                                    </a> --}}
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="{{ route('excelDaily') }}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Tanggal</label>
+                                    <input type="date" class="form-control" id="dateDay" name="dateDay">
+                                </div>
+                                <div class="form-group">
+                                    <label>Cetak Daily Excel</label>
+                                    <button type="submit" id="excelDaily" class="btn btn-secondary btn-sm btn-border btn-round">
+                                        <i class="fas fa-print"></i>
+                                        Download
+                                    </button>
+                                    {{-- <a href="{{ route('excelDaily') }}" id="excelDailyBtn" class="btn btn-info btn-sm btn-border btn-round" onclick="ExportExcelDaily();">
+                                        <i class="far fa-file-excel"></i>
+                                        Download
+                                    </a> --}}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -303,7 +347,7 @@
             "pagination": true,
             "stateSave": true,
             "ajax": {
-                url: "/api/transaction/order",
+                url: "/api/order",
                 type: "GET",
                 dataType: "json",
                 dataSrc: "",
@@ -425,11 +469,11 @@
         var getId = table.row(number).data().OrderId;
         // console.log(getId);
         $.ajax({
-            url: "/api/transaction/order/" + getId,
+            url: "/api/order/" + getId,
         }).then((result) => {
             var resData = result.data;
             $.ajax({
-                url: "/api/transaction/orderdet/" + resData.OrderId,
+                url: "/api/order/orderdet/" + resData.OrderId,
             }).then((resTbl) => {
                 var resDataTbl = resTbl.data;
                 $('#orderDetail').DataTable({
@@ -503,7 +547,7 @@
                 Data._method = 'DELETE';
                 $.ajax({
                     type: 'POST',
-                    url: "/api/transaction/order/del/" + getid,
+                    url: "/api/order/del/" + getid,
                     cache: false,
                     dataType: "JSON",
                     data: Data,
@@ -534,7 +578,7 @@
         var getId = $('#orderDetail').DataTable().row(number).data().OrderDetId;
         // console.log(getId);
         $.ajax({
-            url: "/api/transaction/order/det/" + getId,
+            url: "/api/orderdet/" + getId,
             type: 'GET',
         }).then((result) => {
             // debugger;
@@ -561,7 +605,7 @@
         // console.log(Data);
         $.ajax({
             type: 'POST',
-            url: '/api/transaction/order/det',
+            url: '/api/orderdet/',
             cache: false,
             dataType: "JSON",
             data: Data
@@ -602,7 +646,7 @@
                 Data._method = 'DELETE';
                 $.ajax({
                     type: 'POST',
-                    url: "/api/transaction/order/det/" + getid,
+                    url: "/api/orderdet/" + getid,
                     cache: false,
                     dataType: "JSON",
                     data: Data,
@@ -617,6 +661,7 @@
                             showConfirmButton: false,
                             timer: 1500,
                         });
+                        // $('#orderDetail').DataTable().ajax.reload(null, false);
                         table.ajax.reload(null, false);
                     } else {
                         Swal.fire('Error', 'Failed to Delete', 'error');
@@ -672,7 +717,7 @@
         }).then((result) => {
             var resData = result.data;
             $.ajax({
-                url: "/api/transaction/orderdet/" + resData.OrderId,
+                url: "/api/order/orderdet/" + resData.OrderId,
             }).then((resTbl) => {
                 var resDataTbl = resTbl.data;
                 $('#orderDetail').DataTable({
@@ -747,6 +792,7 @@
 
         // setTimeout(function(){newWin.close();},10);
     }
+
 
 </script>
 

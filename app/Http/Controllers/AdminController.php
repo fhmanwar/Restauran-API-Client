@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExcelDaily;
+use App\Exports\ExcelMonthly;
 use App\Library\JsonRes;
 use App\Library\Utilities;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
 class AdminController extends Controller
@@ -50,10 +55,6 @@ class AdminController extends Controller
     public function transaction()
     {
         return view('admin.transaction.transaksi');
-    }
-    public function laporan()
-    {
-        return view('admin.transaction.laporan');
     }
 
     public function print($id)
@@ -99,5 +100,17 @@ class AdminController extends Controller
         // return Utilities::printPreview($data);
         $pdf = PDF::loadview('admin.transaction.pdf', $data);
         return $pdf->stream();
+    }
+
+    public function transaksiMonhtExcel(Request $request)
+    {
+        $month = Carbon::parse($request->dateMonth)->format('m');
+        return Excel::download(new ExcelMonthly($month), 'Penjualan_Monthly.xlsx');
+    }
+
+    public function transaksiDailyExcel(Request $request)
+    {
+        $day = Carbon::parse($request->dateDay)->format('d');
+        return Excel::download(new ExcelDaily($day), 'Penjualan_Daily.xlsx');
     }
 }
