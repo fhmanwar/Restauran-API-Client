@@ -15,7 +15,7 @@ class CreateTbUser extends Migration
     {
         Schema::create('tb_user', function(Blueprint $table)
 		{
-			$table->integer('id_user', true)->primary();
+			$table->integer('id_user', true);
 			$table->string('username', 150)->nullable()->unique('username');
 			$table->string('password', 150)->nullable();
 			$table->string('passHash', 150)->nullable();
