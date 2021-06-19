@@ -115,7 +115,7 @@
                     <form action="#">
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" id="CustName" placeholder="Customer Name">
+                                <input type="text" class="form-control" id="CustName" placeholder="Customer Name" required>
                             </div>
                             <div class="col-md-3">
                                 <a href="#" class="btn btn-primary" onclick="addOrder();">Order <i class="icon-credit-card"></i></a>
