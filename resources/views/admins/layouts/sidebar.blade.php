@@ -29,11 +29,6 @@
                                 <a href="#edit">
                                     <span class="link-collapse">Edit Profile</span>
                                 </a>
-                            </li>
-                            <li>
-                                <a href="#settings">
-                                    <span class="link-collapse">Settings</span>
-                                </a>
                             </li> --}}
                         </ul>
                     </div>

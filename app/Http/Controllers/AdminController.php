@@ -48,31 +48,31 @@ class AdminController extends Controller
         $data = [
             'product' => $product,
         ];
-        return view('admin.dashboard.dasbor', $data);
+        return view('admins.dashboards.dasbor', $data);
     }
 
     public function level()
     {
-        return view('admin.user.level');
+        return view('admins.users.level');
     }
 
     public function user()
     {
-        return view('admin.user.user');
+        return view('admins.users.user');
     }
 
     public function product()
     {
-        return view('admin.dashboard.item');
+        return view('admins.dashboards.item');
     }
 
     public function order()
     {
-        return view('admin.transaction.order');
+        return view('admins.transactions.order');
     }
     public function transaction()
     {
-        return view('admin.transaction.transaksi');
+        return view('admins.transactions.transaksi');
     }
 
     public function print($id)
@@ -116,7 +116,7 @@ class AdminController extends Controller
         ];
 
         // return Utilities::printPreview($data);
-        $pdf = PDF::loadview('admin.transaction.pdf', $data);
+        $pdf = PDF::loadview('admins.transactions.pdf', $data);
         return $pdf->stream();
     }
 

@@ -37,8 +37,8 @@
 
 <body>
     <div class="wrapper">
-        @include('admin.layout.navbar')
-        @include('admin.layout.sidebar')
+        @include('admins.layouts.navbar')
+        @include('admins.layouts.sidebar')
 
         <div class="main-panel">
             <div class="content">

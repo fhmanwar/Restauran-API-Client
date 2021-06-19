@@ -33,7 +33,7 @@ class HomeController extends Controller
             'product' => Product::all(),
         ];
         // return View::make('user.katalog', $data);
-        return view('users.katalog', $data)->render();
+        return view('users.katalog', $data);
     }
 
     public function addCart(Request $request)
@@ -72,14 +72,14 @@ class HomeController extends Controller
         $data = [
             'cart' => $cart,
         ];
-        return view('users.cart', $data)->render();
+        return view('users.cart', $data);
     }
 
     public function completeOder($id)
     {
         if (session('noMeja') == $id) {
             session()->flush();
-            return view('users.done')->render();
+            return view('users.done');
         }
         else {
             return redirect()->route('home')->with('status','tidak memiliki akses');
