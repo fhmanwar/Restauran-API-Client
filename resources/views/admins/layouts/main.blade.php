@@ -71,7 +71,7 @@
 
     <!-- jQuery Scrollbar -->
     <script src="{{ asset('/js/plugin/jquery.scrollbar.min.js') }}"></script>
-    <script src="{{ asset('/js/Plugin/jquery.ui.touch-punch.min.js') }}"></script>
+    <script src="{{ asset('/js/plugin/jquery.ui.touch-punch.min.js') }}"></script>
 
     <!-- Moment JS -->
     <script src="{{ asset('/template/assets/js/plugin/moment/moment.min.js') }}"></script>
