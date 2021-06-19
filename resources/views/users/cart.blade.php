@@ -1,4 +1,4 @@
-@extends('user.layout.main')
+@extends('users.layout')
 @section('title','Dashboard')
 @section('head-title','Welcome to Dashboard')
 
