@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTbMasakanTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('tb_masakan', function(Blueprint $table)
+class CreateTbMasakan extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tb_masakan', function(Blueprint $table)
 		{
 			$table->integer('id_masakan', true)->primary();
 			$table->string('nama_masakan', 150);
@@ -22,17 +22,15 @@ class CreateTbMasakanTable extends Migration {
 			$table->string('status_masakan', 150);
 			$table->string('gambar_masakan', 150)->nullable();
 		});
-	}
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('tb_masakan');
-	}
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tb_masakan');
+    }
 }

@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('Order', function(Blueprint $table)
+class CreateOrder extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('Order', function(Blueprint $table)
 		{
 			$table->integer('Id', true)->primary();
             $table->unsignedBigInteger('UserId')->nullable();
@@ -25,17 +25,15 @@ class CreateOrderTable extends Migration {
 			$table->enum('StatusOrder', array('true','false'))->default('false');
 			$table->dateTime('CreatedTime');
 		});
-	}
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('Order');
-	}
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('order');
+    }
 }
