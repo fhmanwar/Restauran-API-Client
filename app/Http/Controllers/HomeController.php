@@ -8,13 +8,14 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
     protected $rootUri = 'http://localhost:5000/api/';
     public function index()
     {
-        return view('user.katalog');
+        return View::make('welcome');
     }
 
     public function setSessionCustomer($id)
