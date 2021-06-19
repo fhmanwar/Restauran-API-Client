@@ -15,7 +15,7 @@ class CreateTbLevelTable extends Migration {
 	{
 		Schema::create('tb_level', function(Blueprint $table)
 		{
-			$table->integer('id', true);
+			$table->integer('id', true)->primary();
 			$table->string('nama_level', 150);
 		});
 	}
