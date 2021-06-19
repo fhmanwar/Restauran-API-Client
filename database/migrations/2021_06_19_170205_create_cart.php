@@ -15,7 +15,7 @@ class CreateCart extends Migration
     {
         Schema::create('Cart', function(Blueprint $table)
 		{
-			$table->integer('Id', true)->primary();
+			$table->integer('Id', true);
             $table->unsignedBigInteger('UserId')->nullable();
             $table->foreign('UserId')->references('id_user')->on('tb_user')->onUpdate('RESTRICT')->onDelete('SET NULL');
             $table->unsignedBigInteger('ProductId');

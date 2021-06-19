@@ -15,7 +15,7 @@ class CreateTbMasakan extends Migration
     {
         Schema::create('tb_masakan', function(Blueprint $table)
 		{
-			$table->integer('id_masakan', true)->primary();
+			$table->integer('id_masakan', true);
 			$table->string('nama_masakan', 150);
 			$table->string('harga', 150);
 			$table->integer('stok');

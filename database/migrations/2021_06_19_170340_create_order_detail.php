@@ -15,7 +15,7 @@ class CreateOrderDetail extends Migration
     {
         Schema::create('OrderDetail', function(Blueprint $table)
 		{
-			$table->integer('Id', true)->primary();
+			$table->integer('Id', true);
             $table->unsignedBigInteger('OrderId');
             $table->foreign('OrderId')->references('Id')->on('Order')->onUpdate('RESTRICT')->onDelete('CASCADE');
             $table->unsignedBigInteger('ProductId');

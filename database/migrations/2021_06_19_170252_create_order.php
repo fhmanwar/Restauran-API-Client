@@ -15,7 +15,7 @@ class CreateOrder extends Migration
     {
         Schema::create('Order', function(Blueprint $table)
 		{
-			$table->integer('Id', true)->primary();
+			$table->integer('Id', true);
             $table->unsignedBigInteger('UserId')->nullable();
             $table->foreign('UserId')->references('id_user')->on('tb_user')->onUpdate('NO ACTION')->onDelete('SET NULL');
 			$table->integer('NoMeja')->nullable();
