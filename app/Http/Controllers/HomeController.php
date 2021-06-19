@@ -15,7 +15,8 @@ class HomeController extends Controller
     protected $rootUri = 'http://localhost:5000/api/';
     public function index()
     {
-        return View::make('welcome');
+        // return View::make('welcome');
+        return view('tes.welcome')->render();
     }
 
     public function setSessionCustomer($id)
