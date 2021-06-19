@@ -31,7 +31,7 @@ class HomeController extends Controller
         $data = [
             'product' => Product::all(),
         ];
-        return view('user.katalog', $data);
+        return View::make('user.katalog', $data);
     }
 
     public function addCart(Request $request)
@@ -70,7 +70,7 @@ class HomeController extends Controller
         $data = [
             'cart' => $cart,
         ];
-        return view('user.cart', $data);
+        return View::make('user.cart', $data);
     }
 
     public function completeOder($id)
