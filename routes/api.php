@@ -87,3 +87,12 @@ Route::prefix('transaction')->group(function(){
     Route::get('det/{id}', 'API\TransactionController@getIdTransaction');
     Route::post('/', 'API\TransactionController@addTransaction');
 });
+
+// Chart
+Route::prefix('chart')->group(function(){
+    Route::get('tes','API\ChartController@index');
+    Route::get('/', 'API\ChartController@chart');
+    Route::get('count', 'API\ChartController@dataCount');
+});
+
+

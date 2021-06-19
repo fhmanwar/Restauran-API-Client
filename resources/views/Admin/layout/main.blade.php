@@ -32,6 +32,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('/css/plugin/jquery.dataTables.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('/template/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/template/assets/css/azzara.min.css') }}">
+    @yield('style')
 </head>
 
 <body>
@@ -99,6 +100,11 @@
 
     <!-- Sweet Alert -->
     <script src="{{ url('js/plugin/sweetalert2@9.js') }}"></script>
+
+    <!-- Chart amChart -->
+    <script src="{{ asset('js/plugin/amcharts4/core.js') }}"></script>
+    <script src="{{ asset('js/plugin/amcharts4/charts.js') }}"></script>
+    <script src="{{ asset('js/plugin/amcharts4/themes/animated.js') }}"></script>
 
     <!-- Azzara JS -->
     <script src="{{ asset('/template/assets/js/ready.min.js') }}"></script>

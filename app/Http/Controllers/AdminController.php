@@ -8,6 +8,7 @@ use App\Library\JsonRes;
 use App\Library\Utilities;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,24 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard.dasbor');
+        $product = Product::select(
+                        'tb_masakan.id_masakan',
+                        'tb_masakan.nama_masakan',
+                        'tb_masakan.gambar_masakan',
+                        'tb_masakan.harga',
+                        'tb_masakan.stok',
+                        DB::raw('SUM(OrderDetail.Qty) AS Quantity'),
+                        DB::raw('SUM(OrderDetail.SubTotal) AS Total')
+                    )
+                    ->leftJoin('OrderDetail', 'tb_masakan.id_masakan', '=', 'OrderDetail.ProductId')
+                    ->groupBy('tb_masakan.id_masakan')
+                    ->orderBy('Quantity', 'desc')
+                    ->limit(5)
+                    ->get();
+        $data = [
+            'product' => $product,
+        ];
+        return view('admin.dashboard.dasbor', $data);
     }
 
     public function level()
