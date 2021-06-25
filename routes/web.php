@@ -65,4 +65,3 @@ Route::prefix('/')->group(function(){
 });
 
 
-Route::get('tesc', 'TesController@tesApi');
