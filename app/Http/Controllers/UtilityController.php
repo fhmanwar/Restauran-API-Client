@@ -9,7 +9,7 @@ class UtilityController extends Controller
     public function generateQr($id)
     {
         $data = [
-            'qrCode' => \QrCode::size(200)->generate('192.168.0.2:5001/customer/'.$id),
+            'qrCode' => \QrCode::size(200)->generate('/customer/'.$id),
         ];
         return view('qrCode', $data);
     }

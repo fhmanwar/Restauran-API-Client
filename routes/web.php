@@ -53,10 +53,10 @@ Route::prefix('admin')->middleware(['roleAccess'])->group(function(){
 
 Route::prefix('/')->group(function(){
     Route::get('tesUser', 'HomeController@index')->name('tesUser');
+    Route::get('customer/{id}', 'HomeController@setSessionCustomer');
 
     Route::get('home', 'HomeController@katalog')->name('home');
 
-    Route::get('customer/{id}', 'HomeController@setSessionCustomer');
 
     Route::get('cart/{id}', 'HomeController@cart')->name('cart');
     Route::post('addcart', 'HomeController@addCart')->name('addCart');
