@@ -105,7 +105,7 @@
             "pagination": true,
             "stateSave": true,
             "ajax": {
-                url: "/api/level/",
+                url: "/api/level",
                 type: "GET",
                 dataType: "json",
                 dataSrc: "",
@@ -145,6 +145,7 @@
         var getidRole = table.row(number).data().id;
         $.ajax({
             url: "/api/level/"+getidRole,
+            type: 'GET',
             // data: { id: getidRole }
         }).then((result) => {
             // debugger;

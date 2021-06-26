@@ -335,7 +335,7 @@
         // console.log(Data);
         $.ajax({
             type: 'POST',
-            url: '/api/cart/',
+            url: '/api/cart',
             cache: false,
             dataType: "JSON",
             data: Data
@@ -368,7 +368,7 @@
         // console.log(Data);
         $.ajax({
             type: 'POST',
-            url: '/api/cart/updCart/',
+            url: '/api/cart/updCart',
             cache: false,
             dataType: "JSON",
             data: Data

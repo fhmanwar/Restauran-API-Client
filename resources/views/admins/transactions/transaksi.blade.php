@@ -388,7 +388,7 @@
             "pagination": true,
             "stateSave": true,
             "ajax": {
-                url: "/api/transaction/",
+                url: "/api/transaction",
                 type: "GET",
                 dataType: "json",
                 dataSrc: "",

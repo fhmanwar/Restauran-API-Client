@@ -137,7 +137,7 @@
             "pagination": true,
             "stateSave": true,
             "ajax": {
-                url: "/api/user/",
+                url: "/api/user",
                 type: "GET",
                 dataType: "json",
                 dataSrc: "",
@@ -186,7 +186,7 @@
         if (arrData.length === 0) {
             if (element[0].name == 'RoleOption') {
                 $.ajax({
-                    url: "/api/level/",
+                    url: "/api/level",
                     type: "Get",
                     dataType: "json",
                     dataSrc: "",
