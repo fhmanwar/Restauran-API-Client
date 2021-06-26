@@ -1,9 +1,9 @@
 <?php
 
-if((!empty( $_SERVER['HTTP_X_FORWARDED_HOST'])) || (!empty( $_SERVER['HTTP_X_FORWARDED_FOR'])) ) {
-    $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
-    $_SERVER['HTTPS'] = 'on';
-}
+// if((!empty( $_SERVER['HTTP_X_FORWARDED_HOST'])) || (!empty( $_SERVER['HTTP_X_FORWARDED_FOR'])) ) {
+//     $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
+//     $_SERVER['HTTPS'] = 'on';
+// }
 
 /**
  * Laravel - A PHP Framework For Web Artisans
