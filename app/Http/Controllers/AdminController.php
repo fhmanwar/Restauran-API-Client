@@ -31,22 +31,24 @@ class AdminController extends Controller
 
     public function index()
     {
-        $product = Product::select(
-                        'tb_masakan.id_masakan',
-                        'tb_masakan.nama_masakan',
-                        'tb_masakan.gambar_masakan',
-                        'tb_masakan.harga',
-                        'tb_masakan.stok',
-                        DB::raw('SUM(OrderDetail.Qty) AS Quantity'),
-                        DB::raw('SUM(OrderDetail.SubTotal) AS Total')
-                    )
-                    ->leftJoin('OrderDetail', 'tb_masakan.id_masakan', '=', 'OrderDetail.ProductId')
-                    ->groupBy('tb_masakan.id_masakan')
-                    ->orderBy('Quantity', 'desc')
-                    ->limit(5)
-                    ->get();
+        // $product = Product::select(
+        //                 'tb_masakan.id_masakan',
+        //                 'tb_masakan.nama_masakan',
+        //                 'tb_masakan.gambar_masakan',
+        //                 'tb_masakan.harga',
+        //                 'tb_masakan.stok',
+        //                 DB::raw('SUM(OrderDetail.Qty) AS Quantity'),
+        //                 DB::raw('SUM(OrderDetail.SubTotal) AS Total')
+        //             )
+        //             ->leftJoin('OrderDetail', 'tb_masakan.id_masakan', '=', 'OrderDetail.ProductId')
+        //             ->groupBy('tb_masakan.id_masakan')
+        //             ->groupBy('tb_masakan.nama_masakan')
+        //             ->orderBy('Quantity', 'desc')
+        //             ->limit(5)
+        //             ->get();
         $data = [
-            'product' => $product,
+            // 'product' => $product,
+            'product' => null,
         ];
         return view('admins.dashboards.dasbor', $data);
     }

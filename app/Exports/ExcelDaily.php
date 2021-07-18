@@ -8,16 +8,20 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ExcelDaily implements FromCollection
 {
-    public function __construct(string $month)
+    public function __construct(string $day)
     {
-        $this->month = $month;
+        $this->day = $day;
     }
 
     public function collection()
     {
         $model = new ExcelVM();
         $data = $model->hydrate(
-            DB::select('call SP_ExportExcelDay(?)', [$this->month])
+            // For MySql
+            // DB::select('call SP_ExportExcelDay(?)', [$this->day])
+
+            // for SQL Server
+            DB::select('exec SP_ExportExcelDay ?', [$this->day])
         );
         return $data;
     }

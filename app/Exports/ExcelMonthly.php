@@ -17,7 +17,11 @@ class ExcelMonthly implements FromCollection
     {
         $model = new ExcelVM();
         $user = $model->hydrate(
-            DB::select('call SP_ExportExcelMonth(?)', [$this->month])
+            // For MySql
+            // DB::select('call SP_ExportExcelMonth(?)', [$this->month])
+
+            // for SQL Server
+            DB::select('exec SP_ExportExcelMonth ?', [$this->month])
         );
         return $user;
     }
