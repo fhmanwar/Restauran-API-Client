@@ -35,7 +35,7 @@ class ExcelMonthly implements FromView, ShouldAutoSize, WithStyles
         $last = Carbon::parse($this->month)->lastOfMonth()->format('d');
         $year = Carbon::parse($this->month)->format('Y');
 
-        return view('admins.exports.ExcelMonth', [
+        return view('admins.exports.excelMonth', [
             'data' => $data,
             'mth' => $monthFullName,
             'period' => $first.' sd '.$last.' '.$monthFullName.' '.$year,
