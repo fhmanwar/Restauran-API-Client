@@ -24,7 +24,7 @@ class ExcelMonthly implements FromView, ShouldAutoSize, WithStyles
         $month = Carbon::parse($this->month)->format('m');
         $data = $model->hydrate(
             // For MySql
-            DB::select('call SP_ExportExcelDay(?)', [$this->day])
+            DB::select('call SP_ExportExcelMonth(?)', [$month])
 
             // for SQL Server
             // DB::select('exec SP_ExportExcelMonth ?', [$month])
