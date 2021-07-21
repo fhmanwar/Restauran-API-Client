@@ -5,10 +5,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Login</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="{{ asset('/template/assets/img/icon.ico') }}" type="image/x-icon" />
+	<link rel="icon" href="{{ asset('/assets/img/icon.ico') }}" type="image/x-icon" />
 
 	<!-- Fonts and icons -->
-    <script src="{{ asset('/template/assets/js/plugin/webfont/webfont.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/plugin/webfont/webfont.min.js') }}"></script>
 	<script>
 		WebFont.load({
 			google: {"families":["Open+Sans:300,400,600,700"]},
@@ -18,7 +18,7 @@
                         "Font Awesome 5 Regular",
                         "Font Awesome 5 Brands"
                     ],
-                    urls: [" {{ url('/template/assets/css/fonts.css') }} "]
+                    urls: [" {{ url('/assets/css/fonts.css') }} "]
                 },
 			active: function() {
 				sessionStorage.fonts = true;
@@ -27,8 +27,8 @@
 	</script>
 
 	<!-- CSS Files -->
-	<link rel="stylesheet" href="{{ asset('/template/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/template/assets/css/azzara.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/azzara.min.css') }}">
 </head>
 <body>
 
@@ -66,9 +66,9 @@
         </div>
     </div>
 	<script src="{{ asset('/js/plugin/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('/template/assets/js/core/popper.min.js') }}"></script>
-    <script src="{{ asset('/template/assets/js/core/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('/template/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
-	<script src="{{ asset('/template/assets/js/ready.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('/assets/js/ready.min.js') }}"></script>
 </body>
 </html>

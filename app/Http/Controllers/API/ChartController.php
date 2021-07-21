@@ -7,6 +7,7 @@ use App\Library\JsonRes;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,15 @@ class ChartController extends Controller
 {
     public function index()
     {
-        return JsonRes::data(true, 'Successfully');
+        $first = Carbon::parse('2021-02')->startOfDay()->format('d');
+        $second = Carbon::parse('2021-02')->startOfMonth()->format('d');
+        $last1 = Carbon::parse('2021-02')->lastOfMonth()->format('d');
+        $data = [
+            'test1' => $first,
+            'test2' => $second,
+            'test3' => $last1,
+        ];
+        return JsonRes::data(true, 'Successfully', $data);
     }
 
     public function chart()
@@ -28,6 +37,8 @@ class ChartController extends Controller
         )
         ->leftJoin('OrderDetail', 'tb_masakan.id_masakan', '=', 'OrderDetail.ProductId')
         ->groupBy('tb_masakan.id_masakan')
+        ->groupBy('tb_masakan.nama_masakan')
+        ->groupBy('tb_masakan.harga')
         ->orderBy('Quantity', 'desc')
         ->get();
         // return JsonRes::data(true, 'Successfully', $data);

@@ -9,6 +9,7 @@ use App\Library\Utilities;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Barryvdh\DomPDF\PDF as DomPDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,24 +32,27 @@ class AdminController extends Controller
 
     public function index()
     {
-        // $product = Product::select(
-        //                 'tb_masakan.id_masakan',
-        //                 'tb_masakan.nama_masakan',
-        //                 'tb_masakan.gambar_masakan',
-        //                 'tb_masakan.harga',
-        //                 'tb_masakan.stok',
-        //                 DB::raw('SUM(OrderDetail.Qty) AS Quantity'),
-        //                 DB::raw('SUM(OrderDetail.SubTotal) AS Total')
-        //             )
-        //             ->leftJoin('OrderDetail', 'tb_masakan.id_masakan', '=', 'OrderDetail.ProductId')
-        //             ->groupBy('tb_masakan.id_masakan')
-        //             ->groupBy('tb_masakan.nama_masakan')
-        //             ->orderBy('Quantity', 'desc')
-        //             ->limit(5)
-        //             ->get();
+        $product = Product::select(
+                        'tb_masakan.id_masakan',
+                        'tb_masakan.nama_masakan',
+                        'tb_masakan.gambar_masakan',
+                        'tb_masakan.harga',
+                        'tb_masakan.stok',
+                        DB::raw('SUM(OrderDetail.Qty) AS Quantity'),
+                        DB::raw('SUM(OrderDetail.SubTotal) AS Total')
+                    )
+                    ->leftJoin('OrderDetail', 'tb_masakan.id_masakan', '=', 'OrderDetail.ProductId')
+                    ->groupBy('tb_masakan.id_masakan')
+                    ->groupBy('tb_masakan.nama_masakan')
+                    ->groupBy('tb_masakan.gambar_masakan')
+                    ->groupBy('tb_masakan.harga')
+                    ->groupBy('tb_masakan.stok')
+                    ->orderBy('Quantity', 'desc')
+                    ->limit(5)
+                    ->get();
         $data = [
-            // 'product' => $product,
-            'product' => null,
+            'product' => $product,
+            // 'product' => null,
         ];
         return view('admins.dashboards.dasbor', $data);
     }
@@ -118,14 +122,15 @@ class AdminController extends Controller
         ];
 
         // return Utilities::printPreview($data);
-        $pdf = PDF::loadview('admins.transactions.pdf', $data);
+        $pdf = DomPDF::loadview('admins.transactions.pdf', $data);
         return $pdf->stream();
     }
 
     public function transaksiMonhtExcel(Request $request)
     {
-        $month = Carbon::parse($request->dateMonth)->format('m');
-        return Excel::download(new ExcelMonthly($month), 'Penjualan_Monthly.xlsx');
+        // $month = Carbon::parse($request->dateMonth)->format('m');
+        // return Excel::download(new ExcelMonthly($month), 'Penjualan_Monthly.xlsx');
+        return Excel::download(new ExcelMonthly($request->dateMonth), 'Penjualan_Monthly.xlsx');
     }
 
     public function transaksiDailyExcel(Request $request)

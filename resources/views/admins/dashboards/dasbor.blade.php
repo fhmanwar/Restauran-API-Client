@@ -109,30 +109,21 @@
                 <div class="card-title">Top Products</div>
             </div>
             <div class="card-body pb-0">
-                @if ($product > 1)
-                    @foreach ($product as $row)
-                        <div class="d-flex">
-                            <div class="avatar">
-                                <img src="{{ url('img/product/'.$row->gambar_masakan) }}" alt="..." class="avatar-img rounded-circle">
-                            </div>
-                            <div class="flex-1 pt-1 ml-2">
-                                <h5 class="fw-bold mb-1">{{ $row->nama_masakan }}</h5>
-                                <small class="text-muted">Stok Tersedia {{ $row->stok }}</small>
-                            </div>
-                            <div class="d-flex ml-auto align-items-center">
-                                <h3 class="text-info fw-bold">@Rp {{ number_format($row->harga, 2, '.', ',') }}</h3>
-                            </div>
+                @foreach ($product as $row)
+                    <div class="d-flex">
+                        <div class="avatar">
+                            <img src="{{ url('img/product/'.$row->gambar_masakan) }}" alt="..." class="avatar-img rounded-circle">
                         </div>
-                        <div class="separator-dashed"></div>
-                    @endforeach
-                @else`
-                <div class="d-flex">
-                    <div class="d-flex ml-auto align-items-center">
-                        <h3 class="text-info fw-bold">Data tidak tersedia</h3>
+                        <div class="flex-1 pt-1 ml-2">
+                            <h5 class="fw-bold mb-1">{{ $row->nama_masakan }}</h5>
+                            <small class="text-muted">Stok Tersedia {{ $row->stok }}</small>
+                        </div>
+                        <div class="d-flex ml-auto align-items-center">
+                            <h3 class="text-info fw-bold">@Rp {{ number_format($row->harga, 2, '.', ',') }}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="separator-dashed"></div>
-                @endif
+                    <div class="separator-dashed"></div>
+                @endforeach
             </div>
         </div>
     </div>
