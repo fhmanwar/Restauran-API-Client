@@ -43,3 +43,41 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+<script>
+    $( "form" ).submit(function(e) {
+        e.preventDefault();
+        $('#loader').show();
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize()
+        }).then((result) => {
+            // debugger;
+            $('#loader').hide();
+            if (result.statusCode) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: result.msg,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: result.msg,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
+        })
+    });
+</script>
+@endsection

@@ -205,12 +205,14 @@
     }
 
     function addOrder() {
+        $('#loader').show();
         var dataCart=null;
         $.each($(".dataCart"), function name( i, val ) {
             dataCart =  $('input[name="id"]')[i].value +'|'+ $('input[name="productId"]')[i].value +'|'+ $('input[name="qty"]')[i].value + '~' + dataCart;
         });
         // console.log(dataCart);
         if (dataCart == null) {
+            $('#loader').hide();
             Swal.fire({
                 position: 'center',
                 icon: 'info',
@@ -232,6 +234,7 @@
                 dataType: "JSON",
                 data: Data
             }).then((result) => {
+                $('#loader').hide();
                 if (result.statusCode) {
                     Swal.fire({
                         position: 'center',

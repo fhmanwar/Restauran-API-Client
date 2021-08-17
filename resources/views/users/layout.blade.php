@@ -53,7 +53,7 @@
 	</head>
 	<body>
 
-	<div class="colorlib-loader"></div>
+	<div class="colorlib-loader" id="loader"></div>
 
 	<div id="page">
 

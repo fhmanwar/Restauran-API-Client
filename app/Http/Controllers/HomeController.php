@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Library\JsonRes;
 use App\Models\Cart;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -44,7 +45,8 @@ class HomeController extends Controller
         ]);
 
         if ($valid->fails()) {
-            return redirect()->route('home')->with('status', 'nomer Meja tidak ada');
+            // return redirect()->route('home')->with('status', 'nomer Meja tidak ada');
+            return JsonRes::data(false, 'nomer Meja tidak ada', $valid->errors());
         } else {
             $getProdId = Product::where('nama_masakan',$request->productName)->first();
             Cart::create([
@@ -54,7 +56,8 @@ class HomeController extends Controller
                 'NoMeja' => $request->noMeja,
                 'CreatedTime' => Carbon::now(),
             ]);
-            return redirect()->route('home');
+            // return redirect()->route('home');
+            return JsonRes::data(true, 'Add To Cart Successfully');
         }
     }
 
